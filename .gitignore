@@ -1,0 +1,43 @@
+# Archivos y carpetas generados por el sistema operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
+
+# Archivos temporales y logs
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Archivos de entorno
+.env
+.env.*.local
+
+# Carpetas de dependencias y módulos
+node_modules/
+bower_components/
+vendor/
+
+# Carpetas y archivos de compilación y distribución
+/dist
+/build
+/target
+/tmp
+/out
+
+# Archivos de configuración de IDEs y editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos generados por herramientas de prueba o cobertura
+coverage/
+*.pid
+*.seed
+*.pid.lock
+
+# Otros archivos específicos (puedes agregar o quitar según tu proyecto)
+logs/
