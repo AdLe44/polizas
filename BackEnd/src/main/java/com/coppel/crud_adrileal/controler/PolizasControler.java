@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class Prueba {
+public class PolizasControler {
 
     @Autowired
     private HealthCheckRepository healthCheckRepository;
