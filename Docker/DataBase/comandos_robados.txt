@@ -1,3 +1,5 @@
-podman pod create --name postgres_pod -p 5432:5432 -p 9090:80
+podman pod create --name postgres_pod -p 9191:5432 -p 9090:80
 podman run -d --pod postgres_pod --name postgres -e POSTGRES_USER=POSTGRES -e POSTGRES_PASSWORD=PSTG -e POSTGRES_DB=DB_SYS_POLICY postgres:16.7
 podman run -d --pod postgres_pod --name pgadmin -e PGADMIN_DEFAULT_EMAIL=zc.adrileal@gmail.com -e PGADMIN_DEFAULT_PASSWORD=Ad99Le44 pgadmin4:latest
+
+podman pod start postgres_pod
