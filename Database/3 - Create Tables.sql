@@ -18,9 +18,9 @@ CREATE TABLE Polizas (
 	Cantidad INT NOT NULL,
     Fecha DATE NOT NULL,
     CONSTRAINT fk_poliza_empleado
-       FOREIGN KEY (EmpleadoGenero) 
-       REFERENCES Empleado(IdEmpleado),
+        FOREIGN KEY (EmpleadoGenero)
+        REFERENCES Empleado(IdEmpleado),
 	CONSTRAINT fk_poliza_invantario
-       FOREIGN KEY (SKU) 
-       REFERENCES Inventario(SKU)
+        FOREIGN KEY (SKU) 
+        REFERENCES Inventario(SKU)
 );
