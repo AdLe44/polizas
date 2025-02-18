@@ -21,6 +21,6 @@ CREATE TABLE Polizas (
         FOREIGN KEY (EmpleadoGenero)
         REFERENCES Empleado(IdEmpleado),
 	CONSTRAINT fk_poliza_invantario
-        FOREIGN KEY (SKU) 
+        FOREIGN KEY (SKU)
         REFERENCES Inventario(SKU)
 );
