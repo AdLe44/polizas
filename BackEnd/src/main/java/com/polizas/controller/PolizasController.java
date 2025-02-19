@@ -1,6 +1,6 @@
-package com.coppel.crud_adrileal.controler;
+package com.polizas.controller;
 
-import com.coppel.crud_adrileal.repository.HealthCheckRepository;
+import com.polizas.repository.HealthCheckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class PolizasControler {
+public class PolizasController {
 
     @Autowired
     private HealthCheckRepository healthCheckRepository;

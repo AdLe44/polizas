@@ -8,11 +8,11 @@
 		<version>3.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.coppel</groupId>
-	<artifactId>crud_adrileal</artifactId>
+	<groupId>com.polizas</groupId>
+	<artifactId>polizas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>crud_adrileal</name>
-	<description>Backend de proyecto de examen CRUD de Adrián Leal</description>
+	<name>polizas</name>
+	<description>Backend de proyecto POLIZAS de examen CRUD de Adrián Leal</description>
 	<url/>
 	<licenses>
 		<license/>

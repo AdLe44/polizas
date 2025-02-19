@@ -1,16 +1,16 @@
-package com.coppel.crud_adrileal.entity;
+package com.polizas.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class HealthCheck {
+public class HealthCheckEntity {
 
     @Id
     private Long id;
 
     // Constructor, getters y setters
-    public HealthCheck() {}
+    public HealthCheckEntity() {}
 
     public Long getId() {
         return id;
