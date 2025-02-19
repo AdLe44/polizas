@@ -1,10 +1,10 @@
-package com.coppel.crud_adrileal;
+package com.polizas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CrudAdrilealApplicationTests {
+class PolizasApplicationTests {
 
 	@Test
 	void contextLoads() {
