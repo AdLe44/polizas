@@ -1,0 +1,29 @@
+-- Crear un nuevo empleado
+SELECT * FROM fn_administrar_empleado('CREATE', NULL, 'Juan', 'Pérez', 'Gerente');
+
+-- Leer un empleado
+SELECT * FROM fn_administrar_empleado('READ', 1, NULL, NULL, NULL);
+
+-- Actualizar un empleado existente
+SELECT * FROM fn_administrar_empleado('UPDATE', 1, 'Juan', 'Pérez', 'Director');
+
+-- Eliminar un empleado
+SELECT * FROM fn_administrar_empleado('DELETE', 1, NULL, NULL, NULL);
+
+-- Seleccionar todos los empleados
+SELECT * FROM fn_administrar_empleado('READ_ALL', NULL, NULL, NULL, NULL);
+
+-- Crear un nuevo inventario
+SELECT * FROM fn_administrar_inventario('CREATE', '2356', 'Zanahoria', 20);
+
+-- Leer un inventario
+SELECT * FROM fn_administrar_inventario('READ', '2356', NULL, NULL);
+
+-- Leer todos los inventarios
+SELECT * FROM fn_administrar_inventario('READ_ALL', NULL, NULL, NULL);
+
+-- Actualizar un inventario existente
+SELECT * FROM fn_administrar_inventario('UPDATE', '2356', 'Zanahoria', 30);
+
+-- Eliminar un inventario
+SELECT * FROM fn_administrar_inventario('DELETE', '2356', NULL, NULL);
