@@ -24,3 +24,15 @@ CREATE TABLE Polizas (
         FOREIGN KEY (SKU)
         REFERENCES Inventario(SKU)
 );
+
+CREATE TABLE InventarioMovimientos (
+    IdMovimiento SERIAL PRIMARY KEY,
+    SKU VARCHAR(10) NOT NULL,
+    CantidadOriginal INT NOT NULL,
+    Cantidad INT NOT NULL,
+    TipoMovimiento VARCHAR(20) NOT NULL, -- Ejemplo: 'Salida', 'Entrada', 'Ajuste'
+    Fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PolizaID INT,
+    CONSTRAINT fk_inventario FOREIGN KEY (SKU) REFERENCES Inventario (SKU),
+    CONSTRAINT fk_poliza FOREIGN KEY (PolizaID) REFERENCES Polizas (IdPoliza)
+);
