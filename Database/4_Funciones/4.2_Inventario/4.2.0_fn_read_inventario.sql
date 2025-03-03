@@ -9,13 +9,13 @@ RETURNS TABLE (
 BEGIN
     IF p_sku IS NULL THEN
         RETURN QUERY
-        SELECT SKU, Nombre, Cantidad
-        FROM Inventario;
+        SELECT i.SKU, i.Nombre, i.Cantidad
+        FROM Inventario i;
     ELSE
         RETURN QUERY
-        SELECT SKU, Nombre, Cantidad
-        FROM Inventario
-        WHERE SKU = p_sku;
+        SELECT i.SKU, i.Nombre, i.Cantidad
+        FROM Inventario i
+        WHERE i.SKU = p_sku;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

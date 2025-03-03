@@ -10,13 +10,13 @@ RETURNS TABLE (
 BEGIN
     IF p_id_empleado IS NULL THEN
         RETURN QUERY
-        SELECT IdEmpleado, Nombre, Apellido, Puesto
-        FROM Empleado;
+        SELECT e.IdEmpleado, e.Nombre, e.Apellido, e.Puesto
+        FROM Empleado e;
     ELSE
         RETURN QUERY
-        SELECT IdEmpleado, Nombre, Apellido, Puesto
-        FROM Empleado
-        WHERE IdEmpleado = p_id_empleado;
+        SELECT e.IdEmpleado, e.Nombre, e.Apellido, e.Puesto
+        FROM Empleado e
+        WHERE e.IdEmpleado = p_id_empleado;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

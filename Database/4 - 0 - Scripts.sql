@@ -1,44 +1,44 @@
 -- Crear un nuevo empleado
-SELECT * FROM fn_administrar_empleado('CREATE', NULL, 'Juan', 'Pérez', 'Gerente');
+SELECT fn_insert_empleado('Juan', 'Pérez', 'Gerente');
 
 -- Leer un empleado
-SELECT * FROM fn_administrar_empleado('READ', 1, NULL, NULL, NULL);
+SELECT * FROM fn_read_empleado(1);
+
+-- Leer todos los empleados
+SELECT * FROM fn_read_empleado();
 
 -- Actualizar un empleado existente
-SELECT * FROM fn_administrar_empleado('UPDATE', 1, 'Juan', 'Pérez', 'Director');
+SELECT fn_update_empleado(1, 'Juan', 'Pérez', 'Director');
 
 -- Eliminar un empleado
-SELECT * FROM fn_administrar_empleado('DELETE', 1, NULL, NULL, NULL);
-
--- Seleccionar todos los empleados
-SELECT * FROM fn_administrar_empleado('READ_ALL', NULL, NULL, NULL, NULL);
+SELECT fn_delete_empleado(1);
 
 -- Crear un nuevo inventario
-SELECT * FROM fn_administrar_inventario('CREATE', 'A001', 'Producto A', 100);
+SELECT fn_insert_inventario('12345', 'Manzanas', 50);
 
 -- Leer un inventario
-SELECT * FROM fn_administrar_inventario('READ', 'A001', NULL, NULL);
+SELECT * FROM fn_read_inventario('12345');
 
 -- Leer todos los inventarios
-SELECT * FROM fn_administrar_inventario('READ_ALL', NULL, NULL, NULL);
+SELECT * FROM fn_read_inventario();
 
 -- Actualizar un inventario existente
-SELECT * FROM fn_administrar_inventario('UPDATE', 'A001', 'Producto A Modificado', 150);
+SELECT fn_update_inventario('12345', 'Manzanas', 100);
 
 -- Eliminar un inventario
-SELECT * FROM fn_administrar_inventario('DELETE', 'A001', NULL, NULL);
+SELECT fn_delete_inventario('12345');
 
 -- Crear una nueva póliza
-SELECT * FROM fn_administrar_polizas('CREATE', NULL, 1, 'SKU123', 10, '2025-02-22');
+SELECT fn_insert_poliza(1, '12345', 10, '2025-02-19');
 
 -- Leer una póliza
-SELECT * FROM fn_administrar_polizas('READ', 1, NULL, NULL, NULL, NULL);
+SELECT * FROM fn_read_poliza(1);
 
 -- Leer todas las póliza
-SELECT * FROM fn_administrar_polizas('READ_ALL', NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM fn_read_poliza();
 
 -- Actualizar una póliza
-SELECT * FROM fn_administrar_polizas('UPDATE', 5, 2, 'SKU123', 10, '2025-02-22');
+SELECT fn_update_poliza(1, 2, '12345', 15, '2025-02-20');
 
--- Leer una póliza
-SELECT * FROM fn_administrar_polizas('DELETE', 1, NULL, NULL, NULL, '2025-02-22');
+-- Eliminar una póliza
+SELECT fn_delete_poliza(1);
