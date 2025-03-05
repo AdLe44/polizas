@@ -7,7 +7,18 @@ CREATE OR REPLACE FUNCTION fn_update_empleado (
 RETURNS INT AS $$
 DECLARE
     v_id_empleado INT;
+    v_count INT;
 BEGIN
+    -- Verificar si la combinación de nombre y apellido ya existe en otro registro
+    SELECT COUNT(*) INTO v_count
+    FROM Empleado
+    WHERE Nombre = p_nombre AND Apellido = p_apellido AND IdEmpleado <> p_id_empleado;
+
+    IF v_count > 0 THEN
+        RAISE EXCEPTION 'El empleado con nombre % y apellido % ya existe', p_nombre, p_apellido;
+    END IF;
+
+    -- Actualizar el empleado
     UPDATE Empleado
     SET Nombre = p_nombre,
         Apellido = p_apellido,
