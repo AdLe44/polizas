@@ -19,14 +19,53 @@ public class PolizaController {
 
     @GetMapping("/{id}")
     public Map<String, Object> getPolizaById(@PathVariable Integer id) {
-        List<PolizaEntity> polizaList = polizaService.getPolizaById(id);
-        return formatPolizaResponse(polizaList);
+        try {
+            List<PolizaEntity> polizaList = polizaService.getPolizaById(id);
+            return formatPolizaResponse(polizaList);
+        } catch (Exception e) {
+            return formatErrorResponse("Ha ocurrido un error al consultar la póliza.");
+        }
     }
 
     @GetMapping
     public Map<String, Object> getAllPolizas() {
-        List<PolizaEntity> polizaList = polizaService.getAllPolizas();
-        return formatPolizaResponse(polizaList);
+        try {
+            List<PolizaEntity> polizaList = polizaService.getAllPolizas();
+            return formatPolizaResponse(polizaList);
+        } catch (Exception e) {
+            return formatErrorResponse("Ha ocurrido un error al consultar la póliza.");
+        }
+    }
+
+    @PostMapping
+    public Map<String, Object> insertPoliza(@RequestBody PolizaDTO polizaDTO) {
+        try {
+            Integer insertedPolizaId = polizaService.insertPoliza(Integer.parseInt(polizaDTO.getEmpleadoGenero()), polizaDTO.getSku(), polizaDTO.getCantidad(), polizaDTO.getFecha().toString());
+            List<PolizaEntity> polizaList = polizaService.getPolizaById(insertedPolizaId);
+            return formatPolizaResponse(polizaList);
+        } catch (Exception e) {
+            return formatErrorResponse("Ha ocurrido un error en los grabados de póliza.");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public Map<String, Object> updatePoliza(@PathVariable Integer id, @RequestBody PolizaDTO polizaDTO) {
+        try {
+            Integer updatedPolizaId = polizaService.updatePoliza(id, Integer.parseInt(polizaDTO.getEmpleadoGenero()), polizaDTO.getSku(), polizaDTO.getCantidad(), polizaDTO.getFecha().toString());
+            return formatUpdateResponse(updatedPolizaId);
+        } catch (Exception e) {
+            return formatErrorResponse("Ha ocurrido un error al intentar actualizar la póliza.");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public Map<String, Object> deletePoliza(@PathVariable Integer id) {
+        try {
+            Integer deletedPolizaId = polizaService.deletePoliza(id);
+            return formatDeleteResponse(deletedPolizaId);
+        } catch (Exception e) {
+            return formatErrorResponse("Ha ocurrido un error al intentar eliminar la póliza.");
+        }
     }
 
     private Map<String, Object> formatPolizaResponse(List<PolizaEntity> polizaList) {
@@ -55,6 +94,52 @@ public class PolizaController {
 
             response.put("Data", data);
         }
+
+        return response;
+    }
+
+    private Map<String, Object> formatUpdateResponse(Integer updatedPolizaId) {
+        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> meta = new HashMap<>();
+        meta.put("Status", "OK");
+        response.put("Meta", meta);
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> mensajeData = new HashMap<>();
+        mensajeData.put("IDMensaje", "Se actualizó correctamente la poliza " + updatedPolizaId);
+        data.put("Mensaje", mensajeData);
+
+        response.put("Data", data);
+
+        return response;
+    }
+
+    private Map<String, Object> formatDeleteResponse(Integer deletedPolizaId) {
+        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> meta = new HashMap<>();
+        meta.put("Status", "OK");
+        response.put("Meta", meta);
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> mensajeData = new HashMap<>();
+        mensajeData.put("IDMensaje", "Se eliminó correctamente la poliza " + deletedPolizaId);
+        data.put("Mensaje", mensajeData);
+
+        response.put("Data", data);
+
+        return response;
+    }
+
+    private Map<String, Object> formatErrorResponse(String errorMessage) {
+        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> meta = new HashMap<>();
+        meta.put("Status", "FAILURE");
+        response.put("Meta", meta);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("Mensaje", errorMessage);
+
+        response.put("Data", data);
 
         return response;
     }
