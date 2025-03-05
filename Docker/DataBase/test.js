@@ -1,4 +1,3 @@
-// filepath: /C:/Users/nem.madrian/Documents/DEV/PERSONAL/polizas/Docker/DataBase/test_select.js
 const { Client } = require('pg');
 
 const client = new Client({
