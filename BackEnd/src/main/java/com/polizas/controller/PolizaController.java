@@ -1,14 +1,24 @@
 package com.polizas.controller;
 
-import com.polizas.dto.PolizaDTO;
-import com.polizas.entity.PolizaEntity;
-import com.polizas.service.PolizaService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.polizas.dto.PolizaDTO;
+import com.polizas.entity.PolizaEntity;
+import com.polizas.service.PolizaService;
 
 @RestController
 @RequestMapping("/api/polizas")
@@ -40,7 +50,8 @@ public class PolizaController {
     @PostMapping
     public Map<String, Object> insertPoliza(@RequestBody PolizaDTO polizaDTO) {
         try {
-            Integer insertedPolizaId = polizaService.insertPoliza(Integer.parseInt(polizaDTO.getEmpleadoGenero()), polizaDTO.getSku(), polizaDTO.getCantidad(), polizaDTO.getFecha().toString());
+            Date parsedDate = polizaDTO.getFecha();
+            Integer insertedPolizaId = polizaService.insertPoliza(Integer.valueOf(polizaDTO.getEmpleadoGenero()), polizaDTO.getSku(), polizaDTO.getCantidad(), parsedDate);
             List<PolizaEntity> polizaList = polizaService.getPolizaById(insertedPolizaId);
             return formatPolizaResponse(polizaList);
         } catch (Exception e) {
@@ -51,7 +62,8 @@ public class PolizaController {
     @PutMapping("/{id}")
     public Map<String, Object> updatePoliza(@PathVariable Integer id, @RequestBody PolizaDTO polizaDTO) {
         try {
-            Integer updatedPolizaId = polizaService.updatePoliza(id, Integer.parseInt(polizaDTO.getEmpleadoGenero()), polizaDTO.getSku(), polizaDTO.getCantidad(), polizaDTO.getFecha().toString());
+            Date parsedDate = polizaDTO.getFecha();
+            Integer updatedPolizaId = polizaService.updatePoliza(id, Integer.valueOf(polizaDTO.getEmpleadoGenero()), polizaDTO.getSku(), polizaDTO.getCantidad(), parsedDate);
             return formatUpdateResponse(updatedPolizaId);
         } catch (Exception e) {
             return formatErrorResponse("Ha ocurrido un error al intentar actualizar la póliza.");
@@ -74,8 +86,9 @@ public class PolizaController {
         meta.put("Status", "OK");
         response.put("Meta", meta);
 
-        if (!polizaList.isEmpty()) {
-            PolizaEntity poliza = polizaList.get(0);
+        List<Map<String, Object>> dataList = new ArrayList<>();
+
+        for (PolizaEntity poliza : polizaList) {
             Map<String, Object> data = new HashMap<>();
             Map<String, Object> polizaData = new HashMap<>();
             polizaData.put("IDPoliza", poliza.getIdPoliza());
@@ -92,8 +105,10 @@ public class PolizaController {
             articuloData.put("Nombre", poliza.getNombreArticulo());
             data.put("DetalleArticulo", articuloData);
 
-            response.put("Data", data);
+            dataList.add(data);
         }
+
+        response.put("Data", dataList);
 
         return response;
     }

@@ -14,7 +14,7 @@ BEGIN
     WHERE Nombre = p_nombre AND Apellido = p_apellido;
 
     IF v_count > 0 THEN
-        RAISE EXCEPTION 'El empleado con nombre % y apellido % ya existe', p_nombre, p_apellido;
+        RAISE EXCEPTION 'El empleado con nombre % y apellido % ya existe', p_nombre, p_apellido
         USING ERRCODE = 'P0001';
     END IF;
 

@@ -4,6 +4,7 @@ import com.polizas.entity.PolizaEntity;
 import com.polizas.repository.PolizaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Date;
 
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class PolizaService {
         return polizaRepository.findAllPolizas();
     }
 
-    public Integer insertPoliza(Integer empleadoGenero, String sku, Integer cantidad, String fecha) {
+    public Integer insertPoliza(Integer empleadoGenero, String sku, Integer cantidad, Date fecha) {
         return polizaRepository.insertPoliza(empleadoGenero, sku, cantidad, fecha);
     }
 
-    public Integer updatePoliza(Integer id, Integer empleadoGenero, String sku, Integer cantidad, String fecha) {
+    public Integer updatePoliza(Integer id, Integer empleadoGenero, String sku, Integer cantidad, Date fecha) {
         return polizaRepository.updatePoliza(id, empleadoGenero, sku, cantidad, fecha);
     }
 
