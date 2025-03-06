@@ -1,14 +1,16 @@
+// filepath: c:\Users\nem.madrian\Documents\DEV\PERSONAL\polizas\BackEnd\src\main\java\com\polizas\exception\GlobalExceptionHandler.java
 package com.polizas.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.dao.DataAccessException;
-import org.postgresql.util.PSQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -17,13 +19,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handlePSQLException(PSQLException ex, WebRequest request) {
         Map<String, String> response = new HashMap<>();
         
-        if ("P0001".equals(ex.getSQLState())) {
-            response.put("error", "El empleado con el nombre y apellido especificados ya existe");
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        switch (ex.getSQLState()) {
+            case "P0001":
+                response.put("error", "El empleado con el nombre y apellido especificados ya existe");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            case "P0002":
+                response.put("error", "El puesto especificado no es válido. Debe ser 'Gerente' o 'Vendedor'");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            case "P0003":
+                response.put("error", "Cantidad insuficiente en el inventario");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            default:
+                response.put("error", "JDBC exception executing SQL");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        
-        response.put("error", "JDBC exception executing SQL");
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DataAccessException.class)
@@ -33,9 +42,19 @@ public class GlobalExceptionHandler {
         Throwable rootCause = ex.getRootCause();
         if (rootCause instanceof PSQLException) {
             PSQLException psqlException = (PSQLException) rootCause;
-            if ("P0001".equals(psqlException.getSQLState())) {
-                response.put("error", "El empleado con el nombre y apellido especificados ya existe");
-                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            switch (psqlException.getSQLState()) {
+                case "P0001":
+                    response.put("error", "El empleado con el nombre y apellido especificados ya existe");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                case "P0002":
+                    response.put("error", "El puesto especificado no es válido. Debe ser 'Gerente' o 'Vendedor'");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                case "P0003":
+                    response.put("error", "Cantidad insuficiente en el inventario");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                default:
+                    response.put("error", "Database access error");
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
         }
         

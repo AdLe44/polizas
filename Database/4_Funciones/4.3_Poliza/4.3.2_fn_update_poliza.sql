@@ -22,7 +22,8 @@ BEGIN
     -- Verificar si hay suficiente cantidad en el inventario si la diferencia es positiva
     IF v_diferencia > 0 THEN
         IF (SELECT Cantidad FROM Inventario WHERE SKU = p_sku) < v_diferencia THEN
-            RAISE EXCEPTION 'Cantidad insuficiente en el inventario';
+            RAISE EXCEPTION 'Cantidad insuficiente en el inventario'
+            USING ERRCODE = 'P0003';
         END IF;
     END IF;
 

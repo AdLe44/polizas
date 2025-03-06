@@ -18,6 +18,12 @@ BEGIN
         USING ERRCODE = 'P0001';
     END IF;
 
+    -- Verificar si el puesto es válido
+    IF p_puesto NOT IN ('Gerente', 'Vendedor') THEN
+        RAISE EXCEPTION 'El puesto % no es válido. Debe ser "Gerente" o "Vendedor"', p_puesto
+        USING ERRCODE = 'P0002';
+    END IF;
+
     -- Insertar el nuevo empleado
     INSERT INTO Empleado (Nombre, Apellido, Puesto)
     VALUES (p_nombre, p_apellido, p_puesto)

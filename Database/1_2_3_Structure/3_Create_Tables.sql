@@ -8,7 +8,8 @@ CREATE TABLE Empleado (
     IdEmpleado SERIAL PRIMARY KEY,
     Nombre VARCHAR(100) NOT NULL,
 	Apellido VARCHAR(100) NOT NULL,
-	Puesto VARCHAR(100) NOT NULL
+	Puesto VARCHAR(50) NOT NULL,
+    CONSTRAINT chk_puesto CHECK (Puesto IN ('Gerente', 'Vendedor'))
 );
 
 CREATE TABLE Polizas (

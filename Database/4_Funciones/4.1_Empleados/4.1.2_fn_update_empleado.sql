@@ -1,8 +1,8 @@
 CREATE OR REPLACE FUNCTION fn_update_empleado (
     IN p_id_empleado INT,
-    IN p_nombre VARCHAR(100),
-    IN p_apellido VARCHAR(100),
-    IN p_puesto VARCHAR(100)
+    IN p_nombre VARCHAR(50),
+    IN p_apellido VARCHAR(50),
+    IN p_puesto VARCHAR(50)
 )
 RETURNS INT AS $$
 DECLARE
@@ -17,6 +17,12 @@ BEGIN
     IF v_count > 0 THEN
         RAISE EXCEPTION 'El empleado con nombre % y apellido % ya existe', p_nombre, p_apellido
         USING ERRCODE = 'P0001';
+    END IF;
+
+    -- Verificar si el puesto es válido
+    IF p_puesto NOT IN ('Gerente', 'Vendedor') THEN
+        RAISE EXCEPTION 'El puesto % no es válido. Debe ser "Gerente" o "Vendedor"', p_puesto
+        USING ERRCODE = 'P0002';
     END IF;
 
     -- Actualizar el empleado

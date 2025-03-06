@@ -10,7 +10,8 @@ DECLARE
 BEGIN
     -- Verificar si hay suficiente cantidad en el inventario
     IF (SELECT Cantidad FROM Inventario WHERE SKU = p_sku) < p_cantidad THEN
-        RAISE EXCEPTION 'Cantidad insuficiente en el inventario';
+        RAISE EXCEPTION 'Cantidad insuficiente en el inventario'
+        USING ERRCODE = 'P0003';
     END IF;
 
     -- Insertar en la tabla Polizas
