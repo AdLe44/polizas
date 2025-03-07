@@ -12,13 +12,15 @@ import { Empleado } from '../../../models/empleado.model';
   imports: [CommonModule, HttpClientModule]
 })
 export class EmpleadosComponent implements OnInit {
-  empleados: Empleado[] = [];
+  gerentes: Empleado[] = [];
+  vendedores: Empleado[] = [];
 
   constructor(private getEmpleadosService: GetEmpleadosService) { }
 
   ngOnInit(): void {
     this.getEmpleadosService.getEmpleados().subscribe((data: Empleado[]) => {
-      this.empleados = data;
+      this.gerentes = data.filter(empleado => empleado.puesto === 'Gerente');
+      this.vendedores = data.filter(empleado => empleado.puesto === 'Vendedor');
     });
   }
 }
