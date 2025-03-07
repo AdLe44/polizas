@@ -1,15 +1,31 @@
-<div class="empleados-container">
-    <h2>Gerentes</h2>
-    <ul>
-        <li *ngFor="let gerente of gerentes">
-            {{ gerente.nombre }} {{ gerente.apellido }}
-        </li>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Gerentes</h2>
+      <button class="btn btn-primary" (click)="addEmpleado('Gerente')">Agregar Gerente</button>
+    </div>
+    <ul class="list-group mb-4">
+      <li *ngFor="let gerente of gerentes" class="list-group-item d-flex justify-content-between align-items-center">
+        {{ gerente.nombre }}
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button class="btn btn-info" (click)="viewEmpleado(gerente)">Ver</button>
+          <button class="btn btn-secondary" (click)="editEmpleado(gerente)">Modificar</button>
+          <button class="btn btn-danger" (click)="deleteEmpleado(gerente)">Eliminar</button>
+        </div>
+      </li>
     </ul>
-
-    <h2>Vendedores</h2>
-    <ul>
-        <li *ngFor="let vendedor of vendedores">
-            {{ vendedor.nombre }} {{ vendedor.apellido }}
-        </li>
+  
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Vendedores</h2>
+      <button class="btn btn-primary" (click)="addEmpleado('Vendedor')">Agregar Vendedor</button>
+    </div>
+    <ul class="list-group">
+      <li *ngFor="let vendedor of vendedores" class="list-group-item d-flex justify-content-between align-items-center">
+        {{ vendedor.nombre }}
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button class="btn btn-info" (click)="viewEmpleado(vendedor)">Ver</button>
+          <button class="btn btn-secondary" (click)="editEmpleado(vendedor)">Modificar</button>
+          <button class="btn btn-danger" (click)="deleteEmpleado(vendedor)">Eliminar</button>
+        </div>
+      </li>
     </ul>
-</div>
+  </div>

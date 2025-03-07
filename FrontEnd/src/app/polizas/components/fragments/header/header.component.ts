@@ -12,14 +12,16 @@ import { filter } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   pageTitle: string = '';
+  showBackButton: boolean = false;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    ).subscribe((event: NavigationEnd) => {
       this.updatePageTitle();
+      this.showBackButton = !event.urlAfterRedirects.includes('/polizas') || event.urlAfterRedirects.includes('/polizas/empleados') || event.urlAfterRedirects.includes('/polizas/inventario');
     });
   }
 
@@ -34,5 +36,13 @@ export class HeaderComponent implements OnInit {
     } else {
       this.pageTitle = '';
     }
+  }
+
+  navigateTo(route: string): void {
+    this.router.navigate([`/polizas/${route}`]);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/polizas']);
   }
 }

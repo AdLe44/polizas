@@ -1,5 +1,10 @@
 <nav class="navbar bg-light border-bottom border-body" data-bs-theme="light">
     <div class="container-fluid">
         <h3 class="text-secondary">{{ pageTitle }}</h3>
+        <div *ngIf="!showBackButton" class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-dark" (click)="navigateTo('empleados')">Empleados</button>
+            <button type="button" class="btn btn-secondary" (click)="navigateTo('inventario')">Inventario</button>
+        </div>
+        <button *ngIf="showBackButton" class="btn btn-secondary" (click)="goBack()">Regresar a Polizas</button>
     </div>
 </nav>
